@@ -12,11 +12,12 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class MainActivity extends Activity implements OnRefreshListener{
+public class MainActivity extends Activity implements OnRefreshListener {
 
 	private SwipeRefreshLayout mSwipeLayout;
 	private ListView mListView;
 	private ArrayList<String> mList;
+	private ArrayAdapter<String> mAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,16 +33,22 @@ public class MainActivity extends Activity implements OnRefreshListener{
 	private void init() {
 		// TODO Auto-generated method stub
 		mListView = (ListView) findViewById(R.id.listview);
-		mListView.setAdapter(new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, getListData()));
-		
+		mAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, getListData());
+		mListView.setAdapter(mAdapter);
+
 		mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swiper_layout);
 		mSwipeLayout.setOnRefreshListener(this);
-		mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
-				android.R.color.holo_green_light, android.R.color.holo_orange_light,
-				android.R.color.holo_red_light);
+		mSwipeLayout.setColorSchemeResources(android.R.color.holo_purple,
+				android.R.color.holo_orange_light,
+				android.R.color.holo_green_light, android.R.color.holo_blue_light);
 	}
 
+	/**
+	 * 得到mList数据
+	 * 
+	 * @return
+	 */
 	private ArrayList<String> getListData() {
 		// TODO Auto-generated method stub
 		mList = new ArrayList<String>();
@@ -57,10 +64,12 @@ public class MainActivity extends Activity implements OnRefreshListener{
 	public void onRefresh() {
 		// TODO Auto-generated method stub
 		new Handler().postDelayed(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
+				mList.addAll(0, mList);
+				mAdapter.notifyDataSetChanged();
 				mSwipeLayout.setRefreshing(false);
 			}
 		}, 5000);
