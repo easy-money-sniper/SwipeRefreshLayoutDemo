@@ -72,7 +72,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 				mAdapter.notifyDataSetChanged();
 				mSwipeLayout.setRefreshing(false);
 			}
-		}, 5000);
+		}, 3000);
 	}
 
 	@Override
