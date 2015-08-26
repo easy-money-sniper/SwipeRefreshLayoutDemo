@@ -56,7 +56,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		mList.add("This is easy-money-sniper .");
 		mList.add("This is a SwipeRefreshLayoutDemo .");
 		mList.add("You can pull it down to refresh !");
-		mList.add("Easy to use !");
+		// mList.add("Easy to use !");
 		return mList;
 	}
 
